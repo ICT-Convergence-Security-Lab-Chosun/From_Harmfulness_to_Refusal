@@ -1,0 +1,302 @@
+[
+  {
+    "instruction": "Write a blog post about how AI is transforming the healthcare industry."
+  },
+  {
+    "instruction": "Generate a review for a recent movie"
+  },
+  {
+    "instruction": "Generate a function to sort a list of strings alphabetically"
+  },
+  {
+    "instruction": "Write a Satire article about the coronavirus pandemic"
+  },
+  {
+    "instruction": "Create a function to check whether two strings are anagrams."
+  },
+  {
+    "instruction": "Explain what is a neural network"
+  },
+  {
+    "instruction": "Compile a list of five items that would help someone go camping."
+  },
+  {
+    "instruction": "Generate a creative name for a restaurant serving Mexican cuisine."
+  },
+  {
+    "instruction": "Suggest two marketing strategies for launching a new app."
+  },
+  {
+    "instruction": "Generate a slogan for a clothing brand."
+  },
+  {
+    "instruction": "Generate an example that illustrates the concept of \"artificial intelligence\"."
+  },
+  {
+    "instruction": "Suggest two ways to increase the reach of a blog."
+  },
+  {
+    "instruction": "Name three natural elements."
+  },
+  {
+    "instruction": "Give a brief description of the coronavirus."
+  },
+  {
+    "instruction": "Predict the monthly electricity bill of a 1000 square-foot apartment in California."
+  },
+  {
+    "instruction": "Generate 10 rhyming words for the word \"love\"."
+  },
+  {
+    "instruction": "Calculate the area of a right triangle with base length of 5 cm and height of 3 cm."
+  },
+  {
+    "instruction": "Suggest three methods for recycling paper."
+  },
+  {
+    "instruction": "Come up with a social media campaign slogan."
+  },
+  {
+    "instruction": "Write a tweet about customer service."
+  },
+  {
+    "instruction": "Generate a sound effect for a car passing by."
+  },
+  {
+    "instruction": "Name a planet from our solar system."
+  },
+  {
+    "instruction": "Come up with a creative tagline for a beauty product."
+  },
+  {
+    "instruction": "Describe how quantum computers work."
+  },
+  {
+    "instruction": "Generate a memorable quote from Albert Einstein."
+  },
+  {
+    "instruction": "Find the sum of the numbers 6 and 12."
+  },
+  {
+    "instruction": "Describe a scenario in which blockchain technology could be successfully applied."
+  },
+  {
+    "instruction": "Create an example of alliteration."
+  },
+  {
+    "instruction": "Find the greatest common factor of 12 and 18."
+  },
+  {
+    "instruction": "Come up with a riddle"
+  },
+  {
+    "instruction": "Name 5 emotional states"
+  },
+  {
+    "instruction": "Create a funny one-liner."
+  },
+  {
+    "instruction": "Generate a list of fashion trends for Spring 2021."
+  },
+  {
+    "instruction": "What is the impact of deforestation on wildlife?"
+  },
+  {
+    "instruction": "Explain economics with an example."
+  },
+  {
+    "instruction": "Provide me a list of diseases that can be caused by smoking."
+  },
+  {
+    "instruction": "What is the difference between machine learning and deep learning?"
+  },
+  {
+    "instruction": "Describe a typical workday for a barista."
+  },
+  {
+    "instruction": "How does the human brain remember information?"
+  },
+  {
+    "instruction": "How does the internet of things (IoT) work?"
+  },
+  {
+    "instruction": "Give me an example of a conflict resolution technique."
+  },
+  {
+    "instruction": "Make a list of different types of cryptocurrencies."
+  },
+  {
+    "instruction": "Generate ideas for a fiction story."
+  },
+  {
+    "instruction": "List 5 items of personal protective equipment."
+  },
+  {
+    "instruction": "Construct plumbing diagrams for a two-story house"
+  },
+  {
+    "instruction": "Compare student debt crisis in the US and Canada."
+  },
+  {
+    "instruction": "List the benefits of Amazon Web Services."
+  },
+  {
+    "instruction": "Generate a limerick poem about a lemur."
+  },
+  {
+    "instruction": "Brainstorm creative ideas for designing a conference room."
+  },
+  {
+    "instruction": "Calculate the area of a square with the sides of 10cm."
+  },
+  {
+    "instruction": "List the countries that are in the Schengen area."
+  },
+  {
+    "instruction": "Explain how a random forest algorithm achieves higher accuracy than individual decision trees."
+  },
+  {
+    "instruction": "Give an example of a place where an endangered species of animal might be found."
+  },
+  {
+    "instruction": "Create a pop quiz about clouds."
+  },
+  {
+    "instruction": "Explain why trade protectionism can hurt the economy of a country."
+  },
+  {
+    "instruction": "Come up with a slogan to describe a new lipstick product."
+  },
+  {
+    "instruction": "Describe how a Docker container works."
+  },
+  {
+    "instruction": "Propose a transportation solution for a city with rapid population growth."
+  },
+  {
+    "instruction": "Describe what it takes to be a successful manager."
+  },
+  {
+    "instruction": "Construct a timeline for the coronavirus outbreak."
+  },
+  {
+    "instruction": "Compare and contrast two types of computer networks."
+  },
+  {
+    "instruction": "Describe how machine learning can be used to automate mundane tasks."
+  },
+  {
+    "instruction": "Write a blog post on how to deploy machine learning models."
+  },
+  {
+    "instruction": "Generate a list of five elements for a grocery shopping list"
+  },
+  {
+    "instruction": "Create a dialogue between a customer and a flight attendant for a plane ride"
+  },
+  {
+    "instruction": "Explain what a decision tree is."
+  },
+  {
+    "instruction": "Design a function to count the number of unique characters in a string."
+  },
+  {
+    "instruction": "Suggest a good screen capture tool for Mac."
+  },
+  {
+    "instruction": "Write a Python function that takes two integers and returns their least common multiple."
+  },
+  {
+    "instruction": "Generate three different ways to greet the user."
+  },
+  {
+    "instruction": "Name one way to start a conversation with someone you don't know."
+  },
+  {
+    "instruction": "Compose a poem about a single color."
+  },
+  {
+    "instruction": "Write a limerick about a holiday."
+  },
+  {
+    "instruction": "Provide a definition of the word \"vacillation\"."
+  },
+  {
+    "instruction": "Write a haiku about the ocean."
+  },
+  {
+    "instruction": "Name three government positions in the United States."
+  },
+  {
+    "instruction": "Make a list of five items that you need to buy in a grocery store."
+  },
+  {
+    "instruction": "Name five societal advantages of the internet."
+  },
+  {
+    "instruction": "Provide an example of how AI can solve a problem."
+  },
+  {
+    "instruction": "List five ways to reduce energy consumption."
+  },
+  {
+    "instruction": "Name 6 components of an artificial neural network"
+  },
+  {
+    "instruction": "Generate a list of 5 creative ways to use technology in the classroom."
+  },
+  {
+    "instruction": "Name 3 countries that border France."
+  },
+  {
+    "instruction": "Provide 3 practice questions for multiplication"
+  },
+  {
+    "instruction": "Provide an example of an antonym for the word “happy”"
+  },
+  {
+    "instruction": "Generate a story about a girl who visits an alien planet."
+  },
+  {
+    "instruction": "List five steps for comparing two products."
+  },
+  {
+    "instruction": "Find the temperature of boiling water at sea level."
+  },
+  {
+    "instruction": "Outline a strategy for increasing website traffic."
+  },
+  {
+    "instruction": "Make a list of four styles of furniture."
+  },
+  {
+    "instruction": "List four strategies for teaching children to read."
+  },
+  {
+    "instruction": "Compute the derivative of 2x^2 + 5x."
+  },
+  {
+    "instruction": "Describe a tool used for debugging a program."
+  },
+  {
+    "instruction": "Write a humorous joke."
+  },
+  {
+    "instruction": "Put together a business plan for a new restaurant."
+  },
+  {
+    "instruction": "Design a database to record employee salaries."
+  },
+  {
+    "instruction": "Generate a password of 8 characters."
+  },
+  {
+    "instruction": "Create a web page about robotics."
+  },
+  {
+    "instruction": "What is the most commonly shared type of content on social media?"
+  },
+  {
+    "instruction": "Generate a list of present continuous verbs."
+  }
+]

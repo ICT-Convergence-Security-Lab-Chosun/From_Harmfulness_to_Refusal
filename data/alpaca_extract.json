@@ -1,0 +1,302 @@
+[
+  {
+    "instruction": "Describe the character of Romeo from Romeo and Juliet."
+  },
+  {
+    "instruction": "Describe the similarities and difference between cats and dogs."
+  },
+  {
+    "instruction": "Describe the process of creating a website from scratch."
+  },
+  {
+    "instruction": "Describe the process of osmosis."
+  },
+  {
+    "instruction": "Compare and contrast the two pieces of software, Microsoft Word and Google Docs."
+  },
+  {
+    "instruction": "Devise a strategic plan for a fashion brand to increase its online presence."
+  },
+  {
+    "instruction": "Write a definition for the word \"meander\"."
+  },
+  {
+    "instruction": "Compare and contrast the 3 most popular sports in the U.S."
+  },
+  {
+    "instruction": "Write 3 facts about the Tour de France"
+  },
+  {
+    "instruction": "Describe the 1981 NBA MVP award ceremony"
+  },
+  {
+    "instruction": "Name 4 different types of art"
+  },
+  {
+    "instruction": "What is the history of the Tour de France?"
+  },
+  {
+    "instruction": "In 50 words or less, describe the type of atmosphere a modern basketball game"
+  },
+  {
+    "instruction": "What is black box testing and why is it important?"
+  },
+  {
+    "instruction": "How can we use machine learning to improve sports coaching?"
+  },
+  {
+    "instruction": "List 5 benefits of playing sports"
+  },
+  {
+    "instruction": "Describe the impact of the Tour de France on the history of cycling"
+  },
+  {
+    "instruction": "How can analytics be used in sports?"
+  },
+  {
+    "instruction": "Write a paragraph describing a sporting event"
+  },
+  {
+    "instruction": "Generate 2 sentence of a conversation that takes place between the manager and the customer."
+  },
+  {
+    "instruction": "Mention two ways in which a business can use Artificial Intelligence."
+  },
+  {
+    "instruction": "Tell a story about a girl who travels to the moon."
+  },
+  {
+    "instruction": "Describe how technology has changed the way we work."
+  },
+  {
+    "instruction": "Generate a valid opening statement for a speech about the importance of voting."
+  },
+  {
+    "instruction": "Find a sentence that can be used to explain why someone should not use a particular product."
+  },
+  {
+    "instruction": "Generate an opening statement for a speech about the effects of climate change."
+  },
+  {
+    "instruction": "Find a sentence that could be used to close a speech about the causes of global warming."
+  },
+  {
+    "instruction": "Give an example of how technology is used in education."
+  },
+  {
+    "instruction": "Generate two sentences of a conversation that takes place between two shop owners."
+  },
+  {
+    "instruction": "Create a short poem using the word \"moon\"."
+  },
+  {
+    "instruction": "List five advantages of using solar energy."
+  },
+  {
+    "instruction": "Create an example of a web page."
+  },
+  {
+    "instruction": "Explain the meaning of the phrase \"actions speak louder than words\"."
+  },
+  {
+    "instruction": "Brainstorm some ideas for a fictional novel."
+  },
+  {
+    "instruction": "Describe the benefits of exercise."
+  },
+  {
+    "instruction": "Create a list of three tips for public speaking."
+  },
+  {
+    "instruction": "Generate a correct formula to calculate surface area of a triangle"
+  },
+  {
+    "instruction": "Compose a tweet about successful teamwork"
+  },
+  {
+    "instruction": "Calculate the volume of a cylinder with a radius of 10 cm and a height of 5 cm."
+  },
+  {
+    "instruction": "Provide an example of the use of the word \"tentative\"."
+  },
+  {
+    "instruction": "Write a story about a doctor and his patient"
+  },
+  {
+    "instruction": "Find the synonym of the word \"loathe\""
+  },
+  {
+    "instruction": "Describe a type of bird"
+  },
+  {
+    "instruction": "Write a math equation to find the geometric mean between two numbers"
+  },
+  {
+    "instruction": "Make a list of the eight planets in our solar system"
+  },
+  {
+    "instruction": "Generate an analysis of the book To Kill a Mockingbird"
+  },
+  {
+    "instruction": "What is the chemical formula for water?"
+  },
+  {
+    "instruction": "Compose a poem about loneliness."
+  },
+  {
+    "instruction": "Create a new Twitter profile for a medical doctor."
+  },
+  {
+    "instruction": "Suggest an effective marketing strategy for a TV show."
+  },
+  {
+    "instruction": "Construct a web address for a book recommendation website."
+  },
+  {
+    "instruction": "Explain the purpose of a satellite in two sentences."
+  },
+  {
+    "instruction": "Invent a new game involving strategy."
+  },
+  {
+    "instruction": "Discuss the most important effects social media has on society."
+  },
+  {
+    "instruction": "Describe the difference between plagiarism and copyright infringement."
+  },
+  {
+    "instruction": "Hypothesize why Australia has over 140 snake species."
+  },
+  {
+    "instruction": "Create a story about a parrot."
+  },
+  {
+    "instruction": "Describe the benefits of having a mentor."
+  },
+  {
+    "instruction": "List the steps to write a 10-page essay."
+  },
+  {
+    "instruction": "Identify a tool that can be used to calculate risk."
+  },
+  {
+    "instruction": "Suggest a method to optimize a website’s performance."
+  },
+  {
+    "instruction": "Present an argument for why writing a cover letter is important."
+  },
+  {
+    "instruction": "Propose a strategy to build an effective landing page."
+  },
+  {
+    "instruction": "Explain the differences between a variable and a constant."
+  },
+  {
+    "instruction": "Describe the role of a project manager"
+  },
+  {
+    "instruction": "Come up with a use case for an AI-driven chatbot"
+  },
+  {
+    "instruction": "Outline the key differences between the Linux and Windows operating systems."
+  },
+  {
+    "instruction": "Construct a persuasive argument for why a business should invest in SEO."
+  },
+  {
+    "instruction": "Give an example of a miscommunication between two people."
+  },
+  {
+    "instruction": "Summarize the ethical implications of using facial recognition technology."
+  },
+  {
+    "instruction": "Construct a vocab list for an AI-powered chatbot."
+  },
+  {
+    "instruction": "Describe the differences between machine and deep learning"
+  },
+  {
+    "instruction": "Generate a sentence that uses the word ‘zephyr’"
+  },
+  {
+    "instruction": "Explain the physics concept of projectile motion."
+  },
+  {
+    "instruction": "Write a function to convert Fahrenheit to Celsius"
+  },
+  {
+    "instruction": "Write an algorithm to find the minimum element in an array."
+  },
+  {
+    "instruction": "Identify the taxonomic classification for humans."
+  },
+  {
+    "instruction": "Translate the phrase \"I love you\" into Spanish."
+  },
+  {
+    "instruction": "Write a summary of the book \"The Catcher in the Rye\"."
+  },
+  {
+    "instruction": "Create a 5-item shopping list for a healthy breakfast."
+  },
+  {
+    "instruction": "What is the formula for calculating the area of a triangle?"
+  },
+  {
+    "instruction": "Suggest 4 entertaining activities one can do with friends on a weekend."
+  },
+  {
+    "instruction": "Construct a sentence using the present tense of the verb \"eat\"."
+  },
+  {
+    "instruction": "Generate a list of 10 adjectives that describe the color blue."
+  },
+  {
+    "instruction": "Explain the significance of the Battle of Gettysburg."
+  },
+  {
+    "instruction": "Name two advantages of using a distributed database."
+  },
+  {
+    "instruction": "Describe a situation where a chatbot would be more useful than a human assistant."
+  },
+  {
+    "instruction": "Create a dialogue between two colleagues discussing a project they are working on."
+  },
+  {
+    "instruction": "Name five countries with the most number of UNESCO World Heritage sites."
+  },
+  {
+    "instruction": "Create a recipe for a Creamy Tomato Soup."
+  },
+  {
+    "instruction": "Describe the economic system of the United States."
+  },
+  {
+    "instruction": "Create a table of ten of the world's wealthiest people."
+  },
+  {
+    "instruction": "Tell me about the seasons in the temperate forest biome."
+  },
+  {
+    "instruction": "Convert 28 cm to inches."
+  },
+  {
+    "instruction": "Create a plan for a budget-friendly Thanksgiving meal."
+  },
+  {
+    "instruction": "Generate a pseudocode for sorting an array."
+  },
+  {
+    "instruction": "Give me a synonym for the word 'love'."
+  },
+  {
+    "instruction": "Name two characters in the novel Moby Dick."
+  },
+  {
+    "instruction": "Give me a CSS code to make the font size 20px."
+  },
+  {
+    "instruction": "Define what a neural network is."
+  }
+]

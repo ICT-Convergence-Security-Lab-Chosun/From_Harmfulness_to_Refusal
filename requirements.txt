@@ -1,0 +1,16 @@
+# PyTorch is installed as an NVIDIA-specific pre-release build: 2.10.0a0+b4e4ee81d3.nv25.12
+# This build is not available on standard PyPI.
+# Install the appropriate version for your CUDA driver from https://pytorch.org/get-started/locally/
+torch==2.10.0a0+b4e4ee81d3.nv25.12
+transformers==5.9.0
+accelerate==1.13.0
+tokenizers==0.22.1
+safetensors==0.7.0
+sentencepiece==0.2.1
+protobuf==6.33.2
+numpy==2.1.0
+pandas==2.3.3
+matplotlib==3.10.8
+tqdm==4.67.1
+# Optional: only required when using --judge-backend openrouter
+openai>=1.0
