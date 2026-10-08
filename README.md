@@ -27,7 +27,7 @@ All experiments were conducted on NVIDIA B200 GPUs. To reproduce all experiments
 1. [Preparation](#preparation)
 2. [Main Experiments: Causal Pathway and Jailbreak Failure Analysis](#main-experiments-causal-pathway-and-jailbreak-failure-analysis)
 3. [Appendix A: Generalizability across Model Families](#appendix-a-generalizability-across-model-families)
-4. [Appendix B: Generalizability across Model Scales](#appendix-b-generalizability-across-model-scales)
+4. [Appendix A: Generalizability across Model Scales](#appendix-a-generalizability-across-model-scales)
 5. [Rendering Figures](#rendering-figures)
 
 ---
@@ -46,7 +46,7 @@ Some models are gated on Hugging Face. Make sure your environment has access to 
 ---
 ## Main Experiments: Causal Pathway and Jailbreak Failure Analysis
 
-This corresponds to **Sections 4, 5, and 6** of the paper, which cover:
+This corresponds to **Sections 4 and 5** of the paper, which cover:
 - Identifying the Perception, Bridge, and Readout stages via directional projection and activation steering
 - Validating *t*<sub>inst</sub> as the primary relay point via activation patching
 - Diagnosing where and how the safety pathway fails under misrepresentation, authority endorsement, and expert endorsement jailbreak prompts
@@ -68,7 +68,7 @@ Generated figures are written to `src/out_pt/Figure/`.
 ---
 ## Appendix A: Generalizability across Model Families
 
-This corresponds to **Appendix A** of the paper, which verifies that the three-stage pathway structure generalizes to additional model families beyond the primary models.
+This corresponds to the model-family experiments in **Appendix A** of the paper, which verify that the three-stage pathway structure generalizes to additional model families beyond the primary models.
 
 Models: **Gemma-2-9B-it**, **Falcon-3-7B-Instruct**, and **OLMo-2-7B-Instruct**
 
@@ -79,9 +79,9 @@ python run_appendix_a_pipeline.py
 Generated figures are written to `src/out_pt/Figure_Appendix_A/`.
 
 ---
-## Appendix B: Generalizability across Model Scales
+## Appendix A: Generalizability across Model Scales
 
-This corresponds to **Appendix B** of the paper, which examines whether the identified pathway structure and jailbreak failure patterns hold across larger model scales.
+This corresponds to the model-scale experiments in **Appendix A** of the paper, which examine whether the identified pathway structure and jailbreak failure patterns hold across larger model scales.
 
 Models: **LLaMA-3.1-70B-Instruct**, **Qwen-2.5-14B-Instruct**, **Qwen-2.5-32B-Instruct**, and **Qwen-2.5-72B-Instruct**
 
