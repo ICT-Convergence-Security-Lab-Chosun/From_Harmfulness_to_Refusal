@@ -50,6 +50,7 @@ MODEL_DISPLAY_NAMES = {
     "llama-3.1-405b-instruct": "LLaMA 3.1 405B",
     "mistral-7b-instruct-v0.3": "Mistral 7B",
     "qwen2.5-7b-instruct": "Qwen 2.5 7B",
+    "qwen3.5-9b": "Qwen 3.5 9B",
     "qwen2.5-14b-instruct": "Qwen 2.5 14B",
     "qwen2.5-32b-instruct": "Qwen 2.5 32B",
     "qwen2.5-72b-instruct": "Qwen 2.5 72B",

@@ -773,6 +773,7 @@ _MODEL_DISPLAY_NAMES = {
     "qwen2.5-14b-instruct": "Qwen 2.5 14B",
     "qwen2.5-32b-instruct": "Qwen 2.5 32B",
     "qwen2.5-72b-instruct": "Qwen 2.5 72B",
+    "qwen3.5-9b": "Qwen 3.5 9B",
     "yi-1.5-9b-chat": "Yi 1.5 9B",
 }
 

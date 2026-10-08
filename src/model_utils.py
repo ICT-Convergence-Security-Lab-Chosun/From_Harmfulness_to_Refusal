@@ -26,6 +26,7 @@ _ALIAS_TO_MODEL_ID = {
     "qwen14b": "Qwen/Qwen2.5-14B-Instruct",
     "qwen32b": "Qwen/Qwen2.5-32B-Instruct",
     "qwen72b": "Qwen/Qwen2.5-72B-Instruct",
+    "qwen35": "Qwen/Qwen3.5-9B",
     "gemma": "google/gemma-2-9b-it",
     "gemma2": "google/gemma-2-9b-it",
     "granite": "ibm-granite/granite-3.1-8b-instruct",
@@ -122,6 +123,8 @@ def normalize_model_name(model_name: Optional[str]) -> Optional[str]:
         return "qwen32b"
     if lower_name in {"qwen72b", "qwen25_72b", "qwen2.5-72b", "qwen2.5-72b-instruct"}:
         return "qwen72b"
+    if lower_name in {"qwen35", "qwen3.5", "qwen3_5", "qwen3.5-9b", "qwen3.5-9b-instruct"}:
+        return "qwen35"
     return lower_name
 
 
@@ -157,6 +160,8 @@ def infer_model_name_from_id(model_id: str) -> str:
     if "olmo-2" in lowered or "olmo2" in lowered:
         return "olmo2"
     if "qwen" in lowered:
+        if "3.5" in lowered or "3_5" in lowered:
+            return "qwen35"
         if "72b" in lowered:
             return "qwen72b"
         if "32b" in lowered:
@@ -171,7 +176,7 @@ def requires_trust_remote_code(model_name: str, model_id: str) -> bool:
     lowered_model_name = model_name.lower()
     lowered_model_id = model_id.lower()
     return (
-        lowered_model_name in {"qwen", "qwen25", "qwen14b", "qwen32b", "qwen72b", "yi", "glm", "internlm25"}
+        lowered_model_name in {"qwen", "qwen25", "qwen14b", "qwen32b", "qwen72b", "qwen35", "yi", "glm", "internlm25"}
         or "qwen" in lowered_model_id
         or "yi-" in lowered_model_id
         or "chatglm" in lowered_model_id
@@ -234,6 +239,12 @@ def get_template_parts(
     if spec.model_name in {"qwen", "qwen25", "qwen14b", "qwen32b", "qwen72b"}:
         prefix = "<|im_start|>user\n"
         suffix = "" if do_not_use_last_inst_tok else "<|im_end|>\n<|im_start|>assistant"
+        return prefix, suffix
+    if spec.model_name == "qwen35":
+        # Qwen3.5 defaults to thinking; pre-fill a closed empty <think></think> block
+        # (= enable_thinking=False) so it answers directly.
+        prefix = "<|im_start|>user\n"
+        suffix = "" if do_not_use_last_inst_tok else "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
         return prefix, suffix
     if spec.model_name == "yi":
         prefix = "<|im_start|>user\n"
@@ -424,7 +435,7 @@ def load_model_and_tokenizer(
     }
     if spec.model_name == "llama2":
         model_kwargs["torch_dtype"] = torch.float16
-    elif spec.model_name in {"gemma", "yi"}:
+    elif spec.model_name in {"gemma", "yi", "qwen35"}:
         model_kwargs["torch_dtype"] = torch.bfloat16
 
     model_obj = AutoModelForCausalLM.from_pretrained(spec.model_id, **model_kwargs)

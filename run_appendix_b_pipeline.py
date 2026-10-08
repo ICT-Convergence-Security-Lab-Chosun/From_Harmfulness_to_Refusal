@@ -31,7 +31,7 @@ def parse_args() -> tuple[argparse.Namespace, list[str]]:
     )
     parser.add_argument("--run-name", default="appendix_b")
     parser.add_argument("--stages", default="direct,directions,coupling,steering,patching,clean_projection")
-    parser.add_argument("--count", type=int, default=100)
+    parser.add_argument("--count", type=int, default=400)
     parser.add_argument("--direction-count", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--guard-batch-size", type=int, default=4)

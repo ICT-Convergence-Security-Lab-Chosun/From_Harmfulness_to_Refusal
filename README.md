@@ -17,6 +17,7 @@ Generalizability is verified across additional model families and scales:
 - Gemma-2-9B-it
 - Falcon-3-7B-Instruct
 - OLMo-2-7B-Instruct
+- Qwen-3.5-9B
 - LLaMA-3.1-70B-Instruct
 - Qwen-2.5-14B / 32B / 72B-Instruct
 
@@ -40,6 +41,8 @@ pip install -r requirements.txt
 ```
 
 Some models are gated on Hugging Face. Make sure your environment has access to the required model repositories before running the full pipelines.
+
+Directions are extracted from 100 harmful (`data/advbench_extract.json`) and 100 benign (`data/alpaca_extract.json`) samples. Evaluation uses 400 samples per dataset (`--count 400` by default), disjoint from the extraction split: `data/advbench_common.json`, `data/alpaca_common.json`, and the three Sorry-Bench sets.
 
 **Important**: Run the pipeline scripts in the listed order, as later stages depend on outputs produced by earlier ones.
 
@@ -70,7 +73,9 @@ Generated figures are written to `src/out_pt/Figure/`.
 
 This corresponds to the model-family experiments in **Appendix A** of the paper, which verify that the three-stage pathway structure generalizes to additional model families beyond the primary models.
 
-Models: **Gemma-2-9B-it**, **Falcon-3-7B-Instruct**, and **OLMo-2-7B-Instruct**
+Models: **Gemma-2-9B-it**, **Falcon-3-7B-Instruct**, **OLMo-2-7B-Instruct**, and **Qwen-3.5-9B**
+
+Qwen-3.5-9B is run in non-thinking mode (an empty `<think></think>` block is pre-filled after the assistant turn).
 
 ```bash
 python run_appendix_a_pipeline.py

@@ -43,6 +43,7 @@ DATASET_LABELS = {
 MODEL_CAPTIONS = {
     "llama31": "(a) LLaMA 3.1",
     "qwen25": "(b) Qwen 2.5",
+    "qwen35": "(a) Qwen 3.5 9B",
     "aya23": "(a) Aya 23 8B",
     "aya-23-8b": "(a) Aya 23 8B",
     "internlm25": "(a) InternLM 2.5 7B",
@@ -60,6 +61,7 @@ MODEL_CAPTIONS = {
     "llama-3.1-405b-instruct": "(a) LLaMA 3.1 405B",
     "mistral-7b-instruct-v0.3": "(a) Mistral 7B",
     "qwen2.5-7b-instruct": "(a) Qwen 2.5 7B",
+    "qwen3.5-9b": "(a) Qwen 3.5 9B",
     "qwen2.5-14b-instruct": "(a) Qwen 2.5 14B",
     "qwen2.5-32b-instruct": "(a) Qwen 2.5 32B",
     "qwen2.5-72b-instruct": "(a) Qwen 2.5 72B",

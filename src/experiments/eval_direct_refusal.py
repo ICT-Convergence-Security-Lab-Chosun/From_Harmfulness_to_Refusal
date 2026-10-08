@@ -130,6 +130,13 @@ def build_chat_prompts(tokenizer, instructions: list[str]) -> list[str]:
     for inst in instructions:
         messages = [{"role": "user", "content": inst}]
         try:
+            # enable_thinking=False forces NON-thinking output on thinking models
+            # (e.g. Qwen3.5); harmless on models whose template lacks the kwarg.
+            prompt = tokenizer.apply_chat_template(
+                messages, tokenize=False, add_generation_prompt=True,
+                enable_thinking=False,
+            )
+        except TypeError:
             prompt = tokenizer.apply_chat_template(
                 messages, tokenize=False, add_generation_prompt=True,
             )
@@ -212,7 +219,7 @@ def parse_args() -> argparse.Namespace:
         help=f"Datasets to evaluate, comma-separated. Available: {list(DATA_PATHS.keys())}")
     p.add_argument("--count",          type=int, default=100,  help="Samples per dataset")
     p.add_argument("--offset",         type=int, default=0,    help="Dataset start offset")
-    p.add_argument("--max-rows",       type=int, default=200,  help="Maximum rows to load from each dataset")
+    p.add_argument("--max-rows",       type=int, default=500,  help="Maximum rows to load from each dataset")
     p.add_argument("--batch-size",     type=int, default=4,    help="Generation batch size")
     p.add_argument("--max-new-tokens", type=int, default=128,  help="Maximum generated tokens")
     p.add_argument("--data-dir",   type=Path, default=SCRIPT_DIR.parent / "data",

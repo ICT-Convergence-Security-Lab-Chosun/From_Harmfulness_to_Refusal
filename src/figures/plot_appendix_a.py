@@ -3,11 +3,12 @@
 Appendix A figure generator — fully self-contained.
 
 Generates Fig2, Fig3, Fig3_2, Fig4, Fig4_2, Fig5, Fig6, Fig7, Fig8
-for Gemma 2 9B, Falcon3 7B, OLMo 2 7B → out_pt/Figure_Appendix_A/.
+for Gemma 2 9B, Falcon3 7B, OLMo 2 7B, Qwen 3.5 9B → out_pt/Figure_Appendix_A/.
 
 Layout:
-  - Fig2, Fig3_2 : horizontal (1 row × 3 cols, one model per col)
-  - Fig3, Fig4, Fig4_2, Fig5, Fig6, Fig7, Fig8 : vertical (3 rows, one per model)
+  - Fig2 : 2 × 2 grid (one model per panel)
+  - Fig3_2 : horizontal (1 row × N cols, one model per col)
+  - Fig3, Fig4, Fig4_2, Fig5, Fig6, Fig7, Fig8 : vertical (N rows, one per model)
 """
 
 from __future__ import annotations
@@ -61,6 +62,7 @@ APPENDIX_MODELS = [
     ("gemma",   "gemma-2-9b-it",          "gemma2",  "Gemma 2 9B", "(a) Gemma 2 9B"),
     ("falcon3", "falcon3-7b-instruct",     "falcon3", "Falcon3 7B", "(b) Falcon3 7B"),
     ("olmo2",   "olmo-2-1124-7b-instruct", "olmo2",   "OLMo 2 7B",  "(c) OLMo 2 7B"),
+    ("qwen35",  "qwen3.5-9b",              "qwen35",  "Qwen 3.5 9B", "(d) Qwen 3.5 9B"),
 ]
 
 # Bridge layer ranges (inclusive, 0-based) for Fig3 shading
@@ -68,6 +70,7 @@ BRIDGE_LAYERS_FIG3: dict[str, tuple[int, int]] = {
     "gemma-2-9b-it":           (17, 20),
     "falcon3-7b-instruct":     (12, 17),
     "olmo-2-1124-7b-instruct": (13, 16),
+    "qwen3.5-9b":              (11, 16),
 }
 
 FIG5_DATASETS = [
@@ -215,24 +218,32 @@ def plot_coupling_grid(
     column_labels: list[str] | None = None,
     row_captions: list[str] | None = None,
     panel_captions: list[str] | None = None,
+    independent_panels: bool = False,
 ) -> None:
     maps   = [[_load_coupling_values(p) for p in row] for row in paths]
     n_rows = len(paths)
     n_cols = len(paths[0])
 
-    if model_by_row:
+    if independent_panels:
+        limits    = [[_sym_limits([maps[ri][ci]]) for ci in range(n_cols)] for ri in range(n_rows)]
+        limit_for = lambda ri, ci: limits[ri][ci]
+    elif model_by_row:
         limits    = [_sym_limits(row) for row in maps]
         limit_for = lambda ri, ci: limits[ri]
     else:
         limits    = [_sym_limits([maps[ri][ci] for ri in range(n_rows)]) for ci in range(n_cols)]
         limit_for = lambda ri, ci: limits[ci]
 
-    panel_size = 4.35
-    fig_width  = panel_size * n_cols + (1.35 if model_by_row else 1.55)
-    fig_height = panel_size * n_rows + (0.55 if n_rows == 1 else 0.25)
+    if independent_panels:
+        fig_width, fig_height = 3.95 * n_cols + 1.45, 3.95 * n_rows + 1.10
+    else:
+        panel_size = 4.35
+        fig_width  = panel_size * n_cols + (1.35 if model_by_row else 1.55)
+        fig_height = panel_size * n_rows + (0.55 if n_rows == 1 else 0.25)
     fig, axes  = plt.subplots(n_rows, n_cols, figsize=(fig_width, fig_height), squeeze=False)
 
     cbar_images: list = [None] * (n_rows if model_by_row else n_cols)
+    panel_images: dict[tuple[int, int], object] = {}
     for ri, row in enumerate(maps):
         for ci, values in enumerate(row):
             ax = axes[ri][ci]
@@ -240,7 +251,10 @@ def plot_coupling_grid(
             image = ax.imshow(np.ma.masked_invalid(values),
                               origin="lower", aspect="equal",
                               cmap="coolwarm", vmin=vmin, vmax=vmax)
-            cbar_images[ri if model_by_row else ci] = image
+            if independent_panels:
+                panel_images[(ri, ci)] = image
+            else:
+                cbar_images[ri if model_by_row else ci] = image
             ax.set_box_aspect(values.shape[0] / values.shape[1])
             ax.set_xticks(_layer_ticks(values.shape[1]))
             ax.set_yticks(_layer_ticks(values.shape[0]))
@@ -249,7 +263,7 @@ def plot_coupling_grid(
             ax.grid(False)
             if ci == 0:
                 ax.set_ylabel("Injection Layer",   fontsize=_COUPLING_AXIS_FS, labelpad=10)
-            if ri == n_rows - 1:
+            if ri == n_rows - 1 or independent_panels:
                 ax.set_xlabel("Downstream Layer",  fontsize=_COUPLING_AXIS_FS, labelpad=10)
             if column_labels and ri == 0:
                 ax.set_title(column_labels[ci], fontsize=_COUPLING_AXIS_FS,
@@ -263,7 +277,7 @@ def plot_coupling_grid(
                 rotation=90, ha="center", va="center",
                 fontsize=_COUPLING_ROW_LABEL_FS, fontweight="bold",
             )
-        elif show_panel_captions:
+        elif show_panel_captions and not independent_panels:
             for ci in range(n_cols):
                 axes[-1][ci].text(
                     0.5, -0.27,
@@ -273,24 +287,51 @@ def plot_coupling_grid(
                     fontsize=_COUPLING_PANEL_LABEL_FS, fontweight="bold",
                 )
 
-    fig.subplots_adjust(
-        left   = 0.205 if model_by_row else 0.115,
-        right  = 0.905,
-        bottom = 0.16 if n_rows == 1 else 0.08,
-        top    = 0.92 if column_labels else 0.985,
-        wspace = 0.45 if not model_by_row else 0.20,
-        hspace = 0.02 if model_by_row else 0.16,
-    )
-    for idx, image in enumerate(cbar_images):
-        if image is None:
-            continue
-        anchor = (axes[idx][n_cols - 1] if model_by_row else axes[0][idx]).get_position()
-        cax = fig.add_axes([anchor.x1 + 0.012, anchor.y0, 0.016, anchor.height])
-        cbar = fig.colorbar(image, cax=cax)
-        cbar.ax.tick_params(labelsize=_COUPLING_CBAR_TICK_FS, length=4, width=1.0)
-        if model_by_row or idx == len(cbar_images) - 1:
-            cbar.set_label(r"$\Delta$ Refusal Projection",
-                           fontsize=_COUPLING_CBAR_LABEL_FS, labelpad=14)
+    if independent_panels and show_panel_captions:
+        idx = 0
+        for ri in range(n_rows):
+            for ci in range(n_cols):
+                axes[ri][ci].text(
+                    0.5, -0.22,
+                    panel_captions[idx] if panel_captions else f"({chr(ord('a') + idx)})",
+                    transform=axes[ri][ci].transAxes,
+                    ha="center", va="top",
+                    fontsize=_COUPLING_PANEL_LABEL_FS, fontweight="bold",
+                    clip_on=False,
+                )
+                idx += 1
+
+    if independent_panels:
+        fig.subplots_adjust(left=0.10, right=0.95, bottom=0.09, top=0.97, wspace=0.36, hspace=0.34)
+    else:
+        fig.subplots_adjust(
+            left   = 0.205 if model_by_row else 0.115,
+            right  = 0.905,
+            bottom = 0.16 if n_rows == 1 else 0.08,
+            top    = 0.92 if column_labels else 0.985,
+            wspace = 0.45 if not model_by_row else 0.20,
+            hspace = 0.02 if model_by_row else 0.16,
+        )
+    if independent_panels:
+        for (ri, ci), image in panel_images.items():
+            anchor = axes[ri][ci].get_position()
+            cax = fig.add_axes([anchor.x1 + 0.006, anchor.y0, 0.013, anchor.height])
+            cbar = fig.colorbar(image, cax=cax)
+            cbar.ax.tick_params(labelsize=_COUPLING_CBAR_TICK_FS, length=4, width=1.0)
+            if ci == n_cols - 1:
+                cbar.set_label(r"$\Delta$ Refusal Projection",
+                               fontsize=_COUPLING_CBAR_LABEL_FS, labelpad=7)
+    else:
+        for idx, image in enumerate(cbar_images):
+            if image is None:
+                continue
+            anchor = (axes[idx][n_cols - 1] if model_by_row else axes[0][idx]).get_position()
+            cax = fig.add_axes([anchor.x1 + 0.012, anchor.y0, 0.016, anchor.height])
+            cbar = fig.colorbar(image, cax=cax)
+            cbar.ax.tick_params(labelsize=_COUPLING_CBAR_TICK_FS, length=4, width=1.0)
+            if model_by_row or idx == len(cbar_images) - 1:
+                cbar.set_label(r"$\Delta$ Refusal Projection",
+                               fontsize=_COUPLING_CBAR_LABEL_FS, labelpad=14)
 
     _save_figure(fig, output, dpi=dpi, bbox_inches="tight", pad_inches=0.08)
     plt.close(fig)
@@ -801,6 +842,14 @@ TINST_MODEL_CONFIGS: dict[str, dict] = {
             "patch_readout": list(range(17, 32)),
         },
     },
+    "qwen35": {
+        "display":    "Qwen 3.5 9B",
+        "steer_layer": 7,
+        "patch_spans": {
+            "patch_bridge":  list(range(11, 17)),
+            "patch_readout": list(range(17, 31)),
+        },
+    },
 }
 
 
@@ -934,13 +983,17 @@ def render_fig2(base_dir: Path, output: Path, dpi: int) -> None:
     for alias, dir_name, coupling_key, _, panel_label in APPENDIX_MODELS:
         paths.append(latest_coupling_json(base_dir / dir_name, coupling_key, "alpaca_common"))
         panel_captions.append(panel_label)
+
+    n_cols = 2
+    paths_grid = [paths[i:i + n_cols] for i in range(0, len(paths), n_cols)]
     plot_coupling_grid(
-        paths=[paths],
+        paths=paths_grid,
         output=output,
         dpi=dpi,
         model_by_row=False,
         show_panel_captions=True,
         panel_captions=panel_captions,
+        independent_panels=True,
     )
 
 
@@ -1046,7 +1099,7 @@ def render_fig3(base_dir: Path, output: Path, dpi: int) -> None:
 # ---------------------------------------------------------------------------
 
 def render_fig3_2(results_dir: Path, output: Path, dpi: int) -> None:
-    model_names = ["gemma", "falcon3", "olmo2"]
+    model_names = [alias for alias, _, _, _, _ in APPENDIX_MODELS]
     paths    = {name: _latest_tinst_json(results_dir, name) for name in model_names}
     payloads = {name: _load_json(paths[name])                for name in model_names}
 
@@ -1067,12 +1120,10 @@ def render_fig3_2(results_dir: Path, output: Path, dpi: int) -> None:
     }
 
     colors = ["#3f7f6b", "#b45b55"]
-    fig, axes = plt.subplots(1, 3, figsize=(13.6, 4.8), sharey=False)
-    panel_labels = {
-        "gemma":   "(a) Gemma 2",
-        "falcon3": "(b) Falcon 3",
-        "olmo2":   "(c) OLMo 2",
-    }
+    n = len(model_names)
+    fig, axes = plt.subplots(1, n, figsize=(13.6 * n / 3, 4.8), sharey=False, squeeze=False)
+    axes = axes[0]
+    panel_labels = {alias: panel_label for alias, _, _, _, panel_label in APPENDIX_MODELS}
     for idx, name in enumerate(model_names):
         delta_values = -drops_by_model[name]
         lows         = delta_values - stderrs_by_model[name]
@@ -1378,7 +1429,7 @@ def render_fig7_or_fig8(fig_name: str, base_dir: Path, output: Path, dpi: int) -
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Generate Appendix A figures for Gemma 2, Falcon3, OLMo 2."
+        description="Generate Appendix A figures for Gemma 2, Falcon3, OLMo 2, Qwen 3.5."
     )
     parser.add_argument("--base-dir",    default=str(DEFAULT_BASE_DIR))
     parser.add_argument("--output-dir",  default=str(DEFAULT_FIGURE_DIR))
@@ -1409,7 +1460,7 @@ def main() -> None:
     )
 
     if "1" in requested:
-        print("\n=== Fig1 (coupling heatmap, horizontal 1x3) ===")
+        print("\n=== Fig1 (coupling heatmap, 2x2 grid) ===")
         try:    render_fig2(base_dir, output_dir / "Fig1.png", dpi)
         except Exception as e: print(f"[WARN] Fig1 failed: {e}")
 

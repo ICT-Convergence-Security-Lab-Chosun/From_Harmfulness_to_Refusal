@@ -27,11 +27,11 @@ def run(cmd: list[str], dry_run: bool) -> None:
 
 def parse_args() -> tuple[argparse.Namespace, list[str]]:
     parser = argparse.ArgumentParser(
-        description="Run Gemma 2, Falcon3, and OLMo 2 experiments, judging, and Appendix A rendering."
+        description="Run Gemma 2, Falcon3, OLMo 2, and Qwen3.5 experiments, judging, and Appendix A rendering."
     )
     parser.add_argument("--run-name", default="appendix_a")
     parser.add_argument("--stages", default="direct,directions,coupling,steering,patching,clean_projection")
-    parser.add_argument("--count", type=int, default=100)
+    parser.add_argument("--count", type=int, default=400)
     parser.add_argument("--direction-count", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--guard-batch-size", type=int, default=4)
@@ -60,6 +60,7 @@ def main() -> None:
         ("gemma2", EXPERIMENTS / "run_gemma2_pipeline.py"),
         ("falcon3", EXPERIMENTS / "run_falcon_pipeline.py"),
         ("olmo2", EXPERIMENTS / "run_olmo2_7b_pipeline.py"),
+        ("qwen35", EXPERIMENTS / "run_qwen35_pipeline.py"),
     ]
 
     for label, script in pipelines:
@@ -71,7 +72,7 @@ def main() -> None:
     tinst_cmd = [
         sys.executable,
         str(EXPERIMENTS / "steered_tinst_restore_refusal_projection_appendix_A.py"),
-        "--models", "gemma,falcon3,olmo2",
+        "--models", "gemma,falcon3,olmo2,qwen35",
         "--count", str(args.count),
         "--batch-size", str(args.batch_size),
         "--output-dir", str(SRC / "results" / "steered_tinst_restore_refusal_projection"),

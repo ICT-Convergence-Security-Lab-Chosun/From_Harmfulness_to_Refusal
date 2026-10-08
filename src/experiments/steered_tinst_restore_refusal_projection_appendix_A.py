@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import gc
 import json
+import math
 import random
 import subprocess
 import sys
@@ -105,6 +106,14 @@ MODEL_CONFIGS: dict[str, dict[str, Any]] = {
         "patch_spans": {
             "patch_bridge": list(range(13, 17)),
             "patch_readout": list(range(17, 32)),
+        },
+    },
+    "qwen35": {
+        "display": "Qwen 3.5 9B",
+        "steer_layer": 7,
+        "patch_spans": {
+            "patch_bridge": list(range(11, 17)),
+            "patch_readout": list(range(17, 31)),
         },
     },
 }
@@ -595,7 +604,7 @@ def save_combined_figure(
     dpi: int,
     result_paths: dict[str, Path] | None = None,
 ) -> Path:
-    model_names = ["gemma", "falcon3", "olmo2"]
+    model_names = ["gemma", "falcon3", "olmo2", "qwen35"]
     paths = result_paths or {
         model_name: latest_result_json(output_dir, model_name)
         for model_name in model_names
@@ -619,41 +628,55 @@ def save_combined_figure(
     }
 
     colors = ["#3f7f6b", "#b45b55"]
-    fig, axes = plt.subplots(1, 3, figsize=(13.6, 4.8), sharey=False)
+    n = len(model_names)
+    n_cols = 2 if n >= 2 else 1
+    n_rows = math.ceil(n / n_cols)
+    fig, axes = plt.subplots(
+        n_rows, n_cols,
+        figsize=(6.8 * n_cols, 4.7 * n_rows),
+        sharey=False, squeeze=False,
+    )
+    flat_axes = axes.flatten()
+    for ax in flat_axes[n:]:
+        ax.set_visible(False)
+    caption_by_model = {
+        "gemma": "(a) Gemma 2 9B",
+        "falcon3": "(b) Falcon3 7B",
+        "olmo2": "(c) OLMo 2 7B",
+        "qwen35": "(d) Qwen 3.5 9B",
+    }
     for idx, model_name in enumerate(model_names):
+        ax = flat_axes[idx]
+        col = idx % n_cols
         delta_values = -drops_by_model[model_name]
         model_lows = delta_values - drop_stderrs_by_model[model_name]
         low = min(float(model_lows.min()), 0.0)
         high = 0.0
         pad = max((high - low) * 0.18, 0.05)
         _plot_delta_drop_bars(
-            ax=axes[idx],
+            ax=ax,
             drops=drops_by_model[model_name],
             drop_stderrs=drop_stderrs_by_model[model_name],
             title="",
             colors=colors,
-            show_ylabel=idx == 0,
+            show_ylabel=col == 0,
             model_name=model_name,
         )
         val_range = max(abs(low), 0.1)
-        axes[idx].set_ylim(low - pad - val_range * 0.10, high + pad * 0.3)
-        axes[idx].tick_params(axis="y", labelleft=True)
-        axes[idx].text(
+        ax.set_ylim(low - pad - val_range * 0.10, high + pad * 0.3)
+        ax.tick_params(axis="y", labelleft=True)
+        ax.text(
             0.5,
-            -0.31,
-            "(a) Gemma 2"
-            if model_name == "gemma"
-            else "(b) Falcon 3"
-            if model_name == "falcon3"
-            else "(c) OLMo 2",
-            transform=axes[idx].transAxes,
+            -0.22,
+            caption_by_model.get(model_name, model_name),
+            transform=ax.transAxes,
             ha="center",
             va="top",
             fontsize=26,
             fontweight="bold",
         )
 
-    fig.subplots_adjust(left=0.08, right=0.985, bottom=0.31, top=0.94, wspace=0.22)
+    fig.subplots_adjust(left=0.11, right=0.98, bottom=0.11, top=0.96, wspace=0.28, hspace=0.32)
     figure_output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(figure_output, dpi=dpi, bbox_inches="tight", pad_inches=0.03)
     fig.savefig(figure_output.with_suffix(".pdf"), bbox_inches="tight", pad_inches=0.03)

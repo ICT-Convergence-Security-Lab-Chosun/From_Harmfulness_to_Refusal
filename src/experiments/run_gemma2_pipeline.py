@@ -49,7 +49,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--stages", default=DEFAULT_STAGES, help=f"Comma-separated stages. Default: {DEFAULT_STAGES}")
     parser.add_argument("--run-name", default=None, help="Stable suffix for outputs. Default: timestamp.")
     parser.add_argument("--base-dir", default=str(SCRIPT_DIR / "out_pt"))
-    parser.add_argument("--count", type=int, default=100)
+    parser.add_argument("--count", type=int, default=400)
     parser.add_argument("--direction-count", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--guard-batch-size", type=int, default=4)

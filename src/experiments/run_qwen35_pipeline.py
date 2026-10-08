@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Thin orchestration wrapper for the Llama 3.1 8B Instruct pipeline.
+"""Thin orchestration wrapper for the Qwen3.5 9B pipeline.
 
 This script intentionally does not reimplement experiment logic. It only calls
 the existing scripts with explicit paths, so token-position logic stays in the
@@ -19,13 +19,14 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = SCRIPT_DIR.parent
 
-MODEL_ID = "meta-llama/Llama-3.1-8B-Instruct"
-MODEL_ALIAS = "llama31_8b"
-MODEL_OUTPUT_NAME = "llama-3.1-8b-instruct"
+MODEL_ID = "Qwen/Qwen3.5-9B"
+MODEL_ALIAS = "qwen35"
+MODEL_OUTPUT_NAME = "qwen3.5-9b"
 PROMPT_TEMPLATE_NOTE = (
     "direct generation: tokenizer.apply_chat_template() when available; "
-    "steering/coupling/projection: prefix='<|start_header_id|>user<|end_header_id|>\\n', "
-    "suffix='<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n'"
+    "steering/coupling/projection: prefix='<|im_start|>user\\n', "
+    "suffix='<|im_end|>\\n<|im_start|>assistant\\n<think>\\n\\n</think>\\n\\n' "
+    "(Qwen3.5 non-thinking forced; handled in model_utils by model_name=qwen35)"
 )
 
 DATASETS = {
@@ -49,7 +50,7 @@ def parse_csv(raw: str) -> list[str]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Run selected Llama 3.1 8B Instruct experiment stages without editing experiment logic."
+        description="Run selected Qwen3.5 9B experiment stages without editing experiment logic."
     )
     parser.add_argument("--stages", default=DEFAULT_STAGES, help=f"Comma-separated stages. Default: {DEFAULT_STAGES}")
     parser.add_argument("--run-name", default=None, help="Stable suffix for outputs. Default: timestamp.")
